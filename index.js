@@ -5,8 +5,8 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN
 })
 
-console.log("Getting databases")
 const listDatabases = async() => {
+    // for getting a particular database, use query or retrieve
     const res = await notion.databases.list()
     console.log(res)
 }
