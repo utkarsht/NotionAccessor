@@ -1,13 +1,13 @@
-const dotenv = require('dotenv').config()
-const {Client} = require("@notionhq/client")
+const getData = require('./services/notion')
+const express = require('express')
+const PORT = process.env.PORT || 8000
 
-const notion = new Client({
-    auth: process.env.NOTION_TOKEN
+const app = express()
+app.use(express.static('public'))
+
+app.get('/data', async (req, res) => {
+    const data = await getData()
+    res.json(data)
 })
 
-const listDatabases = async() => {
-    // for getting a particular database, use query or retrieve
-    const res = await notion.databases.list()
-    console.log(res)
-}
-listDatabases()
+app.listen(PORT, console.log(`Server started on port ${PORT}`))
